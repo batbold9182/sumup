@@ -1,6 +1,6 @@
 import type { PaginatedSalons, Salon } from './types';
 
-const BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3000';
+const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 export async function getSalons(page = 1, limit = 12): Promise<PaginatedSalons> {
   const res = await fetch(`${BASE}/salons?page=${page}&limit=${limit}`);
