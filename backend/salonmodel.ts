@@ -8,6 +8,7 @@ const salonSchema = new mongoose.Schema({
         latitude:       { type: Number },
         longitude:      { type: Number },
     },
+    district:           { type: String ,index : true},
     phone:              { type: String },
     phoneInternational: { type: String },
     website:            { type: String },

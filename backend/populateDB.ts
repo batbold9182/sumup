@@ -28,6 +28,7 @@ async function fetchAllPlaces(query: string) {
                     "X-Goog-FieldMask":
                         "places.id," +
                         "places.formattedAddress," +
+                        "places.addressComponents," +
                         "places.location," +
                         "places.displayName," +
                         "places.nationalPhoneNumber," +
@@ -60,6 +61,23 @@ async function fetchAllPlaces(query: string) {
     return allPlaces;
 }
 
+function extractDistrict(components: any[]): string | null {
+  if (!components || !Array.isArray(components)) return null;
+  
+  const sublocality = components.find(c => 
+    c.types && c.types.includes('sublocality') || 
+    c.types && c.types.includes('sublocality_level_1')
+  );
+  if (sublocality) return sublocality.longText;
+
+  const area = components.find(c => 
+    c.types && c.types.includes('administrative_area_level_2')
+  );
+  if (area) return area.longText;
+
+  return null;
+}
+
 async function main() {
     await connectDB();
 
@@ -76,6 +94,7 @@ async function main() {
                     name: place.displayName?.text ?? null,
                     address: place.formattedAddress ?? null,
                     location: place.location ?? null,
+                     district: extractDistrict(place.addressComponents),
                     phone: place.nationalPhoneNumber ?? null,
                     phoneInternational: place.internationalPhoneNumber ?? null,
                     website: place.websiteUri ?? null,
