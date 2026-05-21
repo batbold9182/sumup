@@ -28,5 +28,3 @@ dist-ssr
 .env.test
 .env.production
 
-# documentation
-doc.md

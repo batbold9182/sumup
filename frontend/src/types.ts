@@ -2,7 +2,7 @@ export interface Salon {
   _id: string;
   id: string;
   name: string;
-  address: string;
+  address?: string;
   district?: string;
   location?: { latitude: number; longitude: number };
   phone?: string;

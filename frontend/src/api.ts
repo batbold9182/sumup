@@ -39,3 +39,18 @@ export async function updateSalon(id: string, data: Partial<Salon>): Promise<Sal
   if (!res.ok) throw new Error('Failed to update salon');
   return res.json();
 }
+
+export async function createSalon(data: Omit<Salon, '_id'>): Promise<Salon> {
+  const res = await fetch(`${BASE}/salons`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error('Failed to create salon');
+  return res.json();
+}
+
+export async function deleteSalon(id: string): Promise<void> {
+  const res = await fetch(`${BASE}/salons/${id}`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Failed to delete salon');
+}
