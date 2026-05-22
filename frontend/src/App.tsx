@@ -84,8 +84,8 @@ export default function App() {
       setError(null);
       try {
         let result;
-        if (debouncedQuery || minRating > 0 || district) {
-          result = await searchSalons(debouncedQuery, minRating, district, page);
+        if (debouncedQuery || minRating > 0 || district || priceFilter) {
+          result = await searchSalons(debouncedQuery, minRating, district, priceFilter, page);
         } else {
           result = await getSalons(page);
         }
@@ -99,11 +99,8 @@ export default function App() {
       }
     };
     fetchSalons();
-  }, [debouncedQuery, minRating, page, district]);
+  }, [debouncedQuery, minRating, page, district, priceFilter]);
 
-  const filteredSalons = priceFilter
-    ? salons.filter(s => s.priceLevel === priceFilter)
-    : salons;
 
   const [showAddModal, setShowAddModal] = useState(false);
 
@@ -133,7 +130,7 @@ export default function App() {
 
   const hasFilters = query || minRating > 0 || priceFilter || district;
   const displayCount = meta
-    ? priceFilter ? filteredSalons.length : meta.totalItems
+    ? meta.totalItems
     : null;
 
   return (
@@ -187,7 +184,7 @@ export default function App() {
           <select
             className="filter-select"
             value={priceFilter}
-            onChange={e => setPriceFilter(e.target.value)}
+            onChange={e => { setPriceFilter(e.target.value); setPage(1); }}
           >
             <option value="">Any price</option>
             <option value="PRICE_LEVEL_INEXPENSIVE">$ · Budget</option>
@@ -250,7 +247,7 @@ export default function App() {
             </p>
           )}
 
-          {filteredSalons.length === 0 ? (
+          {salons.length === 0 ? (
             <div className="empty-state">
               <div className="empty-icon">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -268,7 +265,7 @@ export default function App() {
             </div>
           ) : (
             <div className="salons-grid">
-              {filteredSalons.map(salon => (
+              {salons.map(salon => (
                 <SalonCard
                   key={salon._id || salon.id}
                   salon={salon}
@@ -278,7 +275,7 @@ export default function App() {
             </div>
           )}
 
-          {meta && meta.totalPages > 1 && !priceFilter && (
+          {meta && meta.totalPages > 1 && (
             <div className="pagination">
               <button
                 className="page-arrow"

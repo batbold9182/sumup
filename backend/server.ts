@@ -47,6 +47,9 @@ app.get("/salons/search", async (req: Request, res: Response) => {
     if (district) {
       filters.district = district as string;
     }
+    if (req.query.priceLevel) {
+      filters.priceLevel = req.query.priceLevel as string;
+    }
     const page = parseInt(req.query.page as string) || 1;
     const limit = parseInt(req.query.limit as string) || 12;
     const skip = (page - 1) * limit;

@@ -12,6 +12,7 @@ export async function searchSalons(
   q: string,
   minRating: number,
   district: string,
+  priceLevel: string,
   page = 1,
   limit = 12
 ): Promise<PaginatedSalons> {
@@ -19,6 +20,7 @@ export async function searchSalons(
   if (q) params.set('q', q);
   if (minRating > 0) params.set('minRating', String(minRating));
   if (district) params.set('district', district);
+  if (priceLevel) params.set('priceLevel', priceLevel);
   const res = await fetch(`${BASE}/salons/search?${params}`);
   if (!res.ok) throw new Error('Failed to search salons');
   return res.json();
