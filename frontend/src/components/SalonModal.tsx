@@ -2,6 +2,17 @@ import { useEffect, useState } from 'react';
 import type { Salon } from '../types';
 import { updateSalon, deleteSalon } from '../api';
 
+const PRICE_DISPLAY: Record<string, string> = {
+  PRICE_LEVEL_INEXPENSIVE:    '$',
+  PRICE_LEVEL_MODERATE:       '$$',
+  PRICE_LEVEL_EXPENSIVE:      '$$$',
+  PRICE_LEVEL_VERY_EXPENSIVE: '$$$$',
+};
+
+function formatPrice(raw: string): string {
+  return PRICE_DISPLAY[raw] ?? raw;
+}
+
 const EDITABLE_FIELDS: { key: keyof Salon; label: string; type?: string }[] = [
   { key: 'name',               label: 'Name' },
   { key: 'address',            label: 'Address' },
@@ -191,7 +202,7 @@ export function SalonModal({ salon, onClose, onUpdate, onDelete }: Props) {
                     <span className="detail-icon">{Icon.tag}</span>
                     <span className="detail-label">Price</span>
                     <span className="detail-value">
-                      <span className="price-tag">{salon.priceLevel}</span>
+                      <span className="price-tag">{formatPrice(salon.priceLevel)}</span>
                     </span>
                   </div>
                 )}

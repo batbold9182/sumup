@@ -190,10 +190,10 @@ export default function App() {
             onChange={e => setPriceFilter(e.target.value)}
           >
             <option value="">Any price</option>
-            <option value="$">$ Budget</option>
-            <option value="$$">$$ Mid-range</option>
-            <option value="$$$">$$$ Premium</option>
-            <option value="$$$$">$$$$ Luxury</option>
+            <option value="PRICE_LEVEL_INEXPENSIVE">$ · Budget</option>
+            <option value="PRICE_LEVEL_MODERATE">$$ · Mid-range</option>
+            <option value="PRICE_LEVEL_EXPENSIVE">$$$ · Premium</option>
+            <option value="PRICE_LEVEL_VERY_EXPENSIVE">$$$$ · Luxury</option>
           </select>
           <select
             className="filter-select"

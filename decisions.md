@@ -8,8 +8,9 @@
 *Frontend*:react it was recommended also familiar with it.
           :found *ReDoS* vulnurability as an accident (accidently writed . on my search it shows most of the results) that could lead data exposure (later know it was called *ReDoS*)
 
-*PriceFilter Feature*: removed duo to lack of data every salon that is fetched got null value. Backend is still active 
-               to get it but felt useless in the frontend so commented out.              
+*PriceFilter Feature*: added it for the manually added salons fixed a format mismatch — standardized all price values to 
+Google Places format (PRICE_LEVEL_MODERATE etc.) so filtering is consistent across both data sources.Now can filter manually added salons with their price
+             
 ## Collecting data - populateDB.ts
 *Booksy*/pros:Verifies data's , local specifically in poland, hard to setup
         /cons:no official api , complex might need to get their dev plan

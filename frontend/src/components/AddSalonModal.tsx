@@ -8,7 +8,12 @@ interface Props {
   onAdd: (salon: Salon) => void;
 }
 
-const PRICE_LEVELS = ['$', '$$', '$$$', '$$$$'];
+const PRICE_LEVELS = [
+  { value: 'PRICE_LEVEL_INEXPENSIVE',    label: '$ · Budget' },
+  { value: 'PRICE_LEVEL_MODERATE',       label: '$$ · Mid-range' },
+  { value: 'PRICE_LEVEL_EXPENSIVE',      label: '$$$ · Premium' },
+  { value: 'PRICE_LEVEL_VERY_EXPENSIVE', label: '$$$$ · Luxury' },
+];
 
 export function AddSalonModal({ districts, onClose, onAdd }: Props) {
   const [form, setForm] = useState({
@@ -104,7 +109,7 @@ export function AddSalonModal({ districts, onClose, onAdd }: Props) {
                   onChange={e => set('priceLevel', e.target.value)}
                 >
                   <option value="">Not specified</option>
-                  {PRICE_LEVELS.map(p => <option key={p} value={p}>{p}</option>)}
+                  {PRICE_LEVELS.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
                 </select>
               </div>
 

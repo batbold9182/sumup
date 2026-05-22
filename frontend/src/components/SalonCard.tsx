@@ -1,5 +1,16 @@
 import type { Salon } from '../types';
 
+const PRICE_DISPLAY: Record<string, string> = {
+  PRICE_LEVEL_INEXPENSIVE:    '$',
+  PRICE_LEVEL_MODERATE:       '$$',
+  PRICE_LEVEL_EXPENSIVE:      '$$$',
+  PRICE_LEVEL_VERY_EXPENSIVE: '$$$$',
+};
+
+function formatPrice(raw: string): string {
+  return PRICE_DISPLAY[raw] ?? raw;
+}
+
 const GRADIENTS: [string, string][] = [
   ['#3b0764', '#6b21a8'],
   ['#172554', '#1e40af'],
@@ -56,7 +67,7 @@ export function SalonCard({ salon, onClick }: { salon: Salon; onClick: () => voi
       <div className="card-body">
         <div className="card-title-row">
           <h3 className="card-name">{salon.name}</h3>
-          {salon.priceLevel && <span className="price-tag">{salon.priceLevel}</span>}
+          {salon.priceLevel && <span className="price-tag">{formatPrice(salon.priceLevel)}</span>}
         </div>
 
         <div className="card-rating-row">
